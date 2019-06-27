@@ -13,17 +13,29 @@ public class destroyout : MonoBehaviour {
 	void Update () {
 		
 	}
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        switch (other.gameObject.tag)
+        switch (collision.gameObject.tag)
         {
             case "bird":
                 {
-                    other.gameObject.GetComponent<bird>().bs = bird.BirdState.dead;
+                    if (collision.gameObject.GetComponent<bird>().bs == bird.BirdState.shoot)
+                        collision.gameObject.GetComponent<bird>().bs = bird.BirdState.dead;
                     return;
                 }
         }
-        Destroy(other.gameObject);
+        Destroy(collision.gameObject);
     }
-    
+    /* {
+         switch (other.gameObject.tag)
+         {
+             case "bird":
+                 {
+                     other.gameObject.GetComponent<bird>().bs = bird.BirdState.dead;
+                     return;
+                 }
+         }
+         Destroy(other.gameObject);
+     }
+     */
 }
