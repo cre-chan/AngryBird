@@ -19,7 +19,7 @@ public class destroyout : MonoBehaviour {
         {
             case "bird":
                 { 
-                    if (collision.gameObject.GetComponent<bird>().bs == bird.BirdState.shoot)
+                    if (collision.gameObject.GetComponent<bird>().bs == bird.BirdState.shoot)   
                         collision.gameObject.GetComponent<bird>().bs = bird.BirdState.dead;
                     return;
                 }
