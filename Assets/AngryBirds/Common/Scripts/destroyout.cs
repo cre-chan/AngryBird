@@ -26,16 +26,5 @@ public class destroyout : MonoBehaviour {
         }
         Destroy(collision.gameObject);
     }
-    /* {
-         switch (other.gameObject.tag)
-         {
-             case "bird":
-                 {
-                     other.gameObject.GetComponent<bird>().bs = bird.BirdState.dead;
-                     return;
-                 }
-         }
-         Destroy(other.gameObject);
-     }
-     */
+    
 }
