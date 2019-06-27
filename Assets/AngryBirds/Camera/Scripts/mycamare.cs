@@ -17,7 +17,7 @@ public class mycamare : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
