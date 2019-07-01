@@ -13,17 +13,5 @@ public class destroyout : MonoBehaviour {
 	void Update () {
 		
 	}
-    private void OnTriggerExit(Collider other)
-    {
-        switch (other.gameObject.tag)
-        {
-            case "bird":
-                {
-                    other.gameObject.GetComponent<bird>().bs = bird.BirdState.dead;
-                    return;
-                }
-        }
-        Destroy(other.gameObject);
-    }
     
 }

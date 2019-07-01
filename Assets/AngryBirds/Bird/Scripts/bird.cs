@@ -3,62 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-interface birdBullet
-{
-    void ReLoad();//将鸟放到弹弓上并初始化
-    void PullPoisition();//调整拉动的位置
-    void ShootOut();//发射
-    bool IsDead();//判断速度，如果过慢则返回true
-}
-
-
-
-public class bird : MonoBehaviour,birdBullet {
+//A bird consists of its MASS,Collider,superpower
+//The Mass is defined in rigidbody as part of physics
+//superpower is triggered when mouse clicked
+[RequireComponent(typeof(Rigidbody2D))]
+public class bird : MonoBehaviour{
 
     public float maxDistance;
     public float speed;
     public float deadSpeed;
-    public enum BirdState{ wait,load,pull,shoot,dead };
-    public BirdState bs;
-
-    private GameObject midPoint;
-    // Use this for initialization
-    void Start () {
-        
+ 
+	//used to lock and unlock as well as shoot the bird
+	//the bird is physics-capable just because of rb2d
+	private Rigidbody2D rb2d{
+		get{ 
+			return GetComponent<Rigidbody2D> ();
+		}
 	}
 
-    public void ReLoad()
-    {
-        midPoint = GameObject.Find("shootpoint");
-        transform.position = midPoint.transform.position;
-        GetComponent<TrailRenderer>().enabled = false;
-        GetComponent<Collider2D>().enabled = false;
-    }
+	//to set if the bird is affected by physics. normally the bird will be locked when on ground or 
+	//when on te slingshot
+	public bool physicsLock{
+		set{ 
+			if (value)
+				Debug.Log ("lock");
+			else
+				Debug.Log ("unlock");
+			
+			_physicsLock = value;
+			rb2d.simulated = !value;
+		}
+		get{ 
+			return _physicsLock;
+		}
+	}
+	private bool _physicsLock;
 
-    public void PullPoisition()
-    {
-        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position += new Vector3(0, 0, -Camera.main.transform.position.z);
-        if (Vector2.Distance(transform.position, midPoint.transform.position) > maxDistance)
-        {
-            Vector3 pos = transform.position - midPoint.transform.position;
-            pos = pos.normalized * maxDistance;
-            transform.position = pos + midPoint.transform.position;
-        }
-    }
+	//give an impulse to shoot the bird out. This makes its acceleration more natural
+	public void shoot(Vector2 force){
+		rb2d.AddForce(force,ForceMode2D.Impulse);
+	}
 
-    public void ShootOut()
-    {
-        Vector3 pos = transform.position - midPoint.transform.position;
-        GetComponent<Rigidbody2D>().isKinematic = false;
-        GetComponent<Rigidbody2D>().velocity = pos * speed;
-        GetComponent<TrailRenderer>().enabled = true;
-        GetComponent<Collider2D>().enabled = true;
-    }
-
+	//triggered when mouse-left pressed
+	public void superpower(){
+		Debug.Log ("Super-- Power");
+	}
+		
+	//should be checked within fixed update
     public bool IsDead()
     {
-        if (GetComponent<Rigidbody2D>().velocity.magnitude < deadSpeed)
+		if (rb2d.velocity.magnitude < deadSpeed)
             return true;
         else
             return false;
