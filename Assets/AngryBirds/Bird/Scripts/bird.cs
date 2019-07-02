@@ -7,11 +7,9 @@ using UnityEngine;
 //The Mass is defined in rigidbody as part of physics
 //superpower is triggered when mouse clicked
 [RequireComponent(typeof(Rigidbody2D))]
-public class bird : MonoBehaviour{
+public class Bird : MonoBehaviour{
 
-    public float maxDistance;
-    public float speed;
-    public float deadSpeed;
+
  
 	//used to lock and unlock as well as shoot the bird
 	//the bird is physics-capable just because of rb2d
@@ -40,22 +38,13 @@ public class bird : MonoBehaviour{
 	private bool _physicsLock;
 
 	//give an impulse to shoot the bird out. This makes its acceleration more natural
-	public void shoot(Vector2 force){
+	public void Shoot(Vector2 force){
 		rb2d.AddForce(force,ForceMode2D.Impulse);
 	}
 
 	//triggered when mouse-left pressed
-	public void superpower(){
+	public void Superpower(){
 		Debug.Log ("Super-- Power");
 	}
 		
-	//should be checked within fixed update
-    public bool IsDead()
-    {
-		if (rb2d.velocity.magnitude < deadSpeed)
-            return true;
-        else
-            return false;
-    }
-	
 }

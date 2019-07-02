@@ -2,25 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
-public class mycamare : MonoBehaviour {
 
+//this is mainly the camara itself. The central control will be scattered into other file
+
+[RequireComponent(typeof(Camera))]
+public partial class MyCamara : MonoBehaviour {
 	public float panSpeed;
 	public float scaleRate;
 
     public float maxSize;//determines the max Size of camera scale
     public float minSize;//the minimum
-    public Collider2D sceneBorder;//this is optional, if absent,the
+    public Collider2D sceneBorder;//this is optional, if absent,the camera is unbound
 
 
-	//a structure indicating to what extent the camera move and 
+	//a structure indicating to what extent the camera move and scale
 	class Move{
-		//indicates the direction a camera should go,normalized
-		public Vector3 pan;
-		public float scale;
+		public Vector3 pan;//indicates the direction a camera should go (normalized)
+        public float scale;//indicates how much the camera's view should scale
 
-		//get those nasty input done.
-		public Move(){
+
+        //get those nasty input done.
+        public Move(){
 			this.pan=new Vector3(
 				Input.GetAxis("Horizontal"),
 				Input.GetAxis("Vertical"),
@@ -30,17 +32,18 @@ public class mycamare : MonoBehaviour {
 
 			this.scale=-Input.GetAxis("Mouse ScrollWheel");
 		}
-
 	}
+
 
 	//restricts the translation in some area
 	void Translate(Vector3 direct){
         this.transform.Translate(direct);
-        AdjustPos();
-
+        if (sceneBorder != null)
+            AdjustPos();
     }
 
-    //we always adjust position in order to keep the camera in
+
+    //we always adjust position in order to keep the camera in scene.The sceneBorder should always be non-null.
     void AdjustPos() {
         var border=Utility.BoundToRect(sceneBorder.bounds);
         var camBorder = Utility.GetCamViewRect(GetComponent<Camera>());
@@ -62,27 +65,20 @@ public class mycamare : MonoBehaviour {
         var mov_vec = new Vector3(x_diff, y_diff, 0);
 
         this.transform.Translate(mov_vec);
-
     }
+
 
     void Scale(float scaleDiff) {
         var endScale = GetComponent<Camera>().orthographicSize + scaleDiff;
-        endScale=Mathf.Clamp(endScale, minSize, maxSize);
         //ensures scale between a valid range
+        endScale = Mathf.Clamp(endScale, minSize, maxSize);
         GetComponent<Camera>().orthographicSize = endScale;
-        AdjustPos();
+
+        //this ensures no null-reference exception
+        if (sceneBorder != null)
+            AdjustPos();
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-		var mov = new Move ();
-		Translate (mov.pan * panSpeed * Time.deltaTime);
-        Scale(mov.scale * scaleRate * Time.deltaTime);
-
-    }
 
     
-
 }

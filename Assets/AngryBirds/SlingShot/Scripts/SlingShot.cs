@@ -3,78 +3,72 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class SlingShot : MonoBehaviour{
-	public float factor=1.0f;//this is used to adjust the strength of shooter
+/*
+ I was considering changing this slingshot to a state machine pattern.
+ There're two states:unloaded and loaded
+
+ unloaded converts to loaded via calling Load()
+ loaded can call emit() to change itself into unloaded.
+ also, under the loaded state, you can drag objects,revert states to loaded.
+     
+     */
+
+public partial class SlingShot : MonoBehaviour{
+	public float factor;//this is used to adjust the strength of shooter
 
 	public Transform positioner;//the center of slingshot in local space
-	private bird bullet;//The bird that can be emitted from slingshot
+	private Bird bullet;//The bird that can be emitted from slingshot
 
 	public float max_strength;//The shooting strength 
 	public float dead_sterngth;//the shooting strength below this won't make sense
+    public bool IsLoaded {
+        get {
+            return this.bullet != null;
+        }
+    }
 
-	//used to indicate the strength used to shoot the bird.
-	//It restricts vec's magnitude to a range.
-	public struct Strength{
-		//allows read only
-		public Vector2 vec{
-			get{ 
-				return _vec;
-			}
-		}
-		Vector2 _vec;
-
-		public Strength(Vector2 vec_,float min,float max){
-			if (vec_.magnitude<min)
-				this._vec=new Vector2(0,0);
-			else if (vec_.magnitude>max){
-				vec_.Normalize();
-				this._vec=vec_*max;
-			}
-			else
-				this._vec=vec_;
-		}
-
-		//if the vec is clamped?
-		public bool isDead(){
-			return vec == new Vector2 (0, 0);
-		}
+	
 
 
-	}
-
-	void Start(){
-	}
-
-	//load the bird onto SlingShot. The slingshot's bullet
-	public void load (bird bullet)
+	//load the bird onto SlingShot. The slingshot's bullet cannot be NULL!!!
+    //The existence simplify the implemantation. It ensures the load to change states.
+	public void Load (Existence<Bird> bullet)
 	{
-		this.bullet = bullet;
-		this.bullet.physicsLock = true;
-		this.bullet.transform.position = positioner.position;
+        //since the bullet reflects the state, this ensures call only works under unloaded state
+        if (!this.IsLoaded) {
+            this.bullet = bullet.Unwrap();
+            this.bullet.physicsLock = true;
+            this.bullet.transform.position = positioner.position;
+        }
+		
 	}
 
-	//unsafe type 
-	public void emit(ref Strength direction){
-		if (this.bullet != null) {
+
+    //dragDelta is a vector pointing from clickpos to positioner
+    public void Drag(Vector2 dragDelta) {
+
+        if (this.IsLoaded) {
+            var strength = new Strength(dragDelta, 0f, max_strength);
+            this.bullet.transform.position = new Vector3(
+                positioner.transform.position.x - strength.vec.x,
+                positioner.transform.position.y - strength.vec.y,
+                0
+                );
+        }
+    }
+
+    public void Revert()
+    {
+        if(this.IsLoaded)
+            this.bullet.transform.position = positioner.position;
+    }
+
+	public void Emit(ref Strength direction){
+		if (this.IsLoaded) {
 			this.bullet.physicsLock = false;//unlock
-			this.bullet.shoot (direction.vec * factor);
+			this.bullet.Shoot (direction.vec * factor);
 			this.bullet = null;
 		}
 	}
-		
-	// some controller function. Emit the bird when released
-    private void OnMouseUp()
-    {
-		//calculate the click position in world. This ensures shooting strength irrelevant to 
-		var clickpos =Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-		Vector3 delta3D = positioner.transform.position-clickpos;
-		Vector2 delta2D = new Vector2 (delta3D.x, delta3D.y);
-
-		//float strength=delta2D.magnitude;
-		var strength=new Strength(delta2D,dead_sterngth,max_strength);
-		if (!strength.isDead())
-			emit(ref strength);
-    }
-
+	
 }
