@@ -11,6 +11,9 @@ using UnityEngine;
  loaded can call emit() to change itself into unloaded.
  also, under the loaded state, you can drag objects,revert states to loaded.
      
+
+ 2019/7/3
+
      */
 
 public partial class SlingShot : MonoBehaviour{
@@ -28,8 +31,6 @@ public partial class SlingShot : MonoBehaviour{
     }
 
 	
-
-
 	//load the bird onto SlingShot. The slingshot's bullet cannot be NULL!!!
     //The existence simplify the implemantation. It ensures the load to change states.
 	public void Load (Existence<Bird> bullet)
@@ -62,6 +63,7 @@ public partial class SlingShot : MonoBehaviour{
         if(this.IsLoaded)
             this.bullet.transform.position = positioner.position;
     }
+
 
 	public void Emit(ref Strength direction){
 		if (this.IsLoaded) {

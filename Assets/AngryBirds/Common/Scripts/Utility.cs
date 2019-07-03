@@ -42,7 +42,7 @@ public class Utility{
 
 //this is a structure that give the constraint content must exist
 public struct Existence<T>
-    where T : Object
+    where T : class
 {
     private T content;//ensures this to be existence
 
@@ -60,19 +60,47 @@ public struct Existence<T>
     }
 }
 
-//use this to represent some action that takesplace only once
-public class FnOnce {
-    public delegate void Func();
+
+public delegate void Action();
+public delegate R Func<R>();
+
+//The datastructure will only call once. Say, two call will only results in one. can be used in competing situation.
+public class InvokerOnce
+{
+    
     private bool called;
 
-    public  FnOnce() {
+    public  InvokerOnce() {
         called = false;
     }
 
-    public void call(Func func) {
+    public void call(Action func) {
         if (!called)
             func();
 
         this.called = true;
     }
 }
+
+
+public class FnOnce<R> {
+    //always non-nullable when func not called
+    private Func<R> func;
+
+    public FnOnce(Existence<Func<R>> func) {
+        this.func = func.Unwrap();
+    }
+
+    public R call() {
+        if (func != null)
+        {
+            var a = func();
+            func = null;
+            return a;
+        }
+        else {
+            throw new UnassignedReferenceException("");
+        }
+    }
+}
+

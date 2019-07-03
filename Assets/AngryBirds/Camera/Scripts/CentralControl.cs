@@ -8,9 +8,13 @@ partial class MyCamara {
     private Bird activeBird;//the currently on-fly bird, add by Watch()
     public float deadSpeed;
     public SlingShot shooter;
-    private Queue<Bird> birds;//initialized at Start(), all the birds in the scene
+
+    private uint currentBird;
+
+    [SerializeField]
+    private Bird[] birds;//initialized at Start(), all the birds in the scene
                               //access via fetchBird(), the count of birds are used to indicate failure
-    FnOnce finalAction=new FnOnce();
+    InvokerOnce finalAction=new InvokerOnce();
     public enum States
     {
         Free,
@@ -51,12 +55,7 @@ partial class MyCamara {
     //used to setup the whole scene
     void Start()
     {
-        var all_birds = GameObject.FindGameObjectsWithTag("bird");
-        this.birds = new Queue<Bird>(all_birds.Length);
-        foreach (var bird in all_birds)
-        {
-            this.birds.Enqueue(bird.GetComponent<Bird>());
-        }
+        currentBird = 0;
     }
 
     // Update is called once per frame
@@ -72,7 +71,7 @@ partial class MyCamara {
     }
 
     void FixedUpdate() {
-        //judge if the bird is within
+        //judge if the bird is within the scene or the speed is too low
         if (activeBird != null){
             var sceneBound = sceneBorder.bounds;
             var scenceRect = Utility.BoundToRect(sceneBound);
@@ -81,9 +80,12 @@ partial class MyCamara {
                 activeBird.transform.position.y
                 );
             //if the bird goes out of scene or it just reached some low speed, stop watch
-            if ( !scenceRect.Contains(birdPos)||
-                activeBird.GetComponent<Rigidbody2D>().velocity.magnitude<deadSpeed)
+            if (!scenceRect.Contains(birdPos) ||
+                activeBird.GetComponent<Rigidbody2D>().velocity.magnitude < deadSpeed)
+            {
+                this.Kill(new Existence<Bird>( this.activeBird));
                 this.UnWatch();
+            }
         }
 
         if (this.Fail()){
@@ -123,10 +125,10 @@ partial class MyCamara {
 
 
     public Bird FetchBird() {
-        if (this.birds.Count <= 0)
+        if (currentBird>=birds.Length)
             return null;
         else
-            return this.birds.Dequeue();
+            return this.birds[currentBird++];
     }
 
     //You win only when there's no pig left
@@ -135,6 +137,13 @@ partial class MyCamara {
     }
 
     private bool Fail() {
-        return this.CurrentState==States.Free&& this.birds.Count <= 0;
+        var fail = true;
+        foreach (var bird in birds)
+            fail = bird.isDead && fail;
+        return fail;
+    }
+
+    private void Kill(Existence<Bird> bird) {
+        bird.Unwrap().isDead = true;
     }
 }
