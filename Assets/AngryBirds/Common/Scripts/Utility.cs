@@ -59,3 +59,20 @@ public struct Existence<T>
         return content;
     }
 }
+
+//use this to represent some action that takesplace only once
+public class FnOnce {
+    public delegate void Func();
+    private bool called;
+
+    public  FnOnce() {
+        called = false;
+    }
+
+    public void call(Func func) {
+        if (!called)
+            func();
+
+        this.called = true;
+    }
+}

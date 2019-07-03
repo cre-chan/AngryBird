@@ -15,24 +15,6 @@ public partial class MyCamara : MonoBehaviour {
     public Collider2D sceneBorder;//this is optional, if absent,the camera is unbound
 
 
-	//a structure indicating to what extent the camera move and scale
-	class Move{
-		public Vector3 pan;//indicates the direction a camera should go (normalized)
-        public float scale;//indicates how much the camera's view should scale
-
-
-        //get those nasty input done.
-        public Move(){
-			this.pan=new Vector3(
-				Input.GetAxis("Horizontal"),
-				Input.GetAxis("Vertical"),
-				0
-			);
-			this.pan.Normalize();
-
-			this.scale=-Input.GetAxis("Mouse ScrollWheel");
-		}
-	}
 
 
 	//restricts the translation in some area

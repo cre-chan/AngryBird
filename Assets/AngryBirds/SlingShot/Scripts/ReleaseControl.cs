@@ -48,21 +48,24 @@ partial class SlingShot {
 
 
     void Start() {
-        var all_birds=GameObject.FindGameObjectsWithTag("bird");
-        ammo = new Queue<Bird>(all_birds.Length);
-        foreach (var bird in all_birds) {
-            ammo.Enqueue(bird.GetComponent<Bird>());
-        }
+    }
+
+    //enables the slingshot control to get bird from some source
+    private Bird GetBird() {
+        return _supervisor.FetchBird();
     }
 
 
     //load when mouse clicked
     private void OnMouseDown() {
-        if (this.ammo.Count == 0)
-            return;
-        var next_bird = this.ammo.Dequeue();
-        if (next_bird!=null)
-            this.Load(new Existence<Bird>(next_bird));
+       
+        var next_bird = this.GetBird();
+
+        if (next_bird != null){
+            var temp = new Existence<Bird>(next_bird);
+            this.Load(temp);
+
+        }
     }
 
     private void OnMouseDrag() {
@@ -96,7 +99,7 @@ partial class SlingShot {
             var bird = this.bullet;
             Emit(ref strength);
             if(bird!=null)
-            _supervisor.Watch( new Existence<Bird>(bird) );
+                _supervisor.Watch( new Existence<Bird>(bird) );
         }
         else
             this.Revert();
