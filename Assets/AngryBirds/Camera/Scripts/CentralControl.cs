@@ -6,14 +6,17 @@ using UnityEngine;
 
 partial class MyCamara {
     private Bird activeBird;//the currently on-fly bird, add by Watch()
-    public float deadSpeed;
-    public SlingShot shooter;
+    [SerializeField]
+    private float deadSpeed;
+    [SerializeField]
+    private SlingShot shooter;
 
     private uint currentBird;
-
     [SerializeField]
     private Bird[] birds;//initialized at Start(), all the birds in the scene
                               //access via fetchBird(), the count of birds are used to indicate failure
+
+    //used to invoke the wi
     InvokerOnce finalAction=new InvokerOnce();
     public enum States
     {
@@ -56,6 +59,14 @@ partial class MyCamara {
     void Start()
     {
         currentBird = 0;
+        if (shooter == null)
+            Debug.LogError("Link a shooter to the MyCamera component");
+        if (deadSpeed <= 0)
+            Debug.LogError("The birds never die when deadSpeed is below 0.0f");
+        if (birds.Length <= 0)
+            Debug.LogError("No birds in the scene");
+        if (sceneBorder == null)
+            Debug.LogError("Scene unbounded with potential error");
     }
 
     // Update is called once per frame
