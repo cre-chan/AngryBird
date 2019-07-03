@@ -5,12 +5,12 @@ using UnityEngine;
 
 //this file handles the interaction and some nasty scripts,
 partial class SlingShot {
-    public MyCamara _supervisor;
-    private Queue<Bird> ammo;
+    [SerializeField]
+    private MyCamara supervisor;
 
     //used to indicate the strength used to shoot the bird.
     //It restricts vec's magnitude to a range.
-    public struct Strength
+    private struct Strength
     {
         //allows read only
         public Vector2 vec
@@ -48,21 +48,36 @@ partial class SlingShot {
 
 
     void Start() {
-        var all_birds=GameObject.FindGameObjectsWithTag("bird");
-        ammo = new Queue<Bird>(all_birds.Length);
-        foreach (var bird in all_birds) {
-            ammo.Enqueue(bird.GetComponent<Bird>());
-        }
+        //Security check!!!!!
+        if (supervisor == null)
+            Debug.LogError(
+                "Supervisor not found. Consider fix this by link a MyCamera" +
+                " to the supervisor attribute."
+                );
+        
+        if (factor <= 0)
+            Debug.LogError("Factor less or equal to 0.0f. This may results in undefined behaviour");
+
+        if (max_strength <= dead_sterngth)
+            Debug.LogError("Having max_strength less than dead_strength");
+    }
+
+    //enables the slingshot control to get bird from some source
+    private Bird GetBird() {
+        return supervisor.FetchBird();
     }
 
 
     //load when mouse clicked
     private void OnMouseDown() {
-        if (this.ammo.Count == 0)
-            return;
-        var next_bird = this.ammo.Dequeue();
-        if (next_bird!=null)
-            this.Load(new Existence<Bird>(next_bird));
+       
+        var next_bird = this.GetBird();
+
+        if (next_bird != null){
+            var temp = new Existence<Bird>(next_bird);
+            this.Load(temp);
+
+        }
     }
 
     private void OnMouseDrag() {
@@ -96,7 +111,7 @@ partial class SlingShot {
             var bird = this.bullet;
             Emit(ref strength);
             if(bird!=null)
-            _supervisor.Watch( new Existence<Bird>(bird) );
+                supervisor.Watch( new Existence<Bird>(bird) );
         }
         else
             this.Revert();

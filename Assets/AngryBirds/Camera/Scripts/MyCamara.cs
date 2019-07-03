@@ -4,35 +4,27 @@ using UnityEngine;
 
 
 //this is mainly the camara itself. The central control will be scattered into other file
+/*
+ 包括摄像机和中央控制脚本。分为MyCamera.cs和CentralControl.cs两部分。MyCamera.cs主要负责摄像机本身。
+ CentralControl.cs负责游戏循环和各种信息交流。目前CentralControl仍不成熟，需要改进。
+
+     */
 
 [RequireComponent(typeof(Camera))]
 public partial class MyCamara : MonoBehaviour {
-	public float panSpeed;
-	public float scaleRate;
+    [SerializeField]
+	private float panSpeed;
+    [SerializeField]
+    private float scaleRate;
 
-    public float maxSize;//determines the max Size of camera scale
-    public float minSize;//the minimum
-    public Collider2D sceneBorder;//this is optional, if absent,the camera is unbound
+    [SerializeField]
+    private float maxSize;//determines the max Size of camera scale
+    [SerializeField]
+    private float minSize;//the minimum
+    [SerializeField]
+    private Collider2D sceneBorder;//this is optional, if absent,the camera is unbound
 
 
-	//a structure indicating to what extent the camera move and scale
-	class Move{
-		public Vector3 pan;//indicates the direction a camera should go (normalized)
-        public float scale;//indicates how much the camera's view should scale
-
-
-        //get those nasty input done.
-        public Move(){
-			this.pan=new Vector3(
-				Input.GetAxis("Horizontal"),
-				Input.GetAxis("Vertical"),
-				0
-			);
-			this.pan.Normalize();
-
-			this.scale=-Input.GetAxis("Mouse ScrollWheel");
-		}
-	}
 
 
 	//restricts the translation in some area

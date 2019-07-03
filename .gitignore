@@ -3,3 +3,4 @@
 /*.sln
 Temp/
 Assets/AngryBirds/tests/*
+test_*.cs

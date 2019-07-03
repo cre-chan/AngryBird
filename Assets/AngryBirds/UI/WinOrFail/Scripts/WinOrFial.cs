@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestScripts : MonoBehaviour {
-	public Bird bullet;
-	public SlingShot shot;
+public class WinOrFial : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 	}
 	
-
+	// Update is called once per frame
+	void Update () {
+		
+	}
 }

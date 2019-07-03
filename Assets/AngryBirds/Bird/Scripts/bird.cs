@@ -7,10 +7,17 @@ using UnityEngine;
 //The Mass is defined in rigidbody as part of physics
 //superpower is triggered when mouse clicked
 [RequireComponent(typeof(Rigidbody2D))]
-public class Bird : MonoBehaviour{
+public partial class Bird : MonoBehaviour{
 
-
+    void Start() {
+        //the bird's default superpower is to shout a phrase
+        this._superpower = new ActionOnce(
+            new Existence<Action>(()=>Debug.Log("Su--per--Po--wer!!"))
+            );
+        this.isDead = false;
+    }
  
+
 	//used to lock and unlock as well as shoot the bird
 	//the bird is physics-capable just because of rb2d
 	private Rigidbody2D rb2d{
@@ -18,6 +25,7 @@ public class Bird : MonoBehaviour{
 			return GetComponent<Rigidbody2D> ();
 		}
 	}
+
 
 	//to set if the bird is affected by physics. normally the bird will be locked when on ground or 
 	//when on te slingshot
@@ -36,15 +44,19 @@ public class Bird : MonoBehaviour{
 		}
 	}
 	private bool _physicsLock;
+    [HideInInspector]
+    public bool isDead;
+
 
 	//give an impulse to shoot the bird out. This makes its acceleration more natural
 	public void Shoot(Vector2 force){
 		rb2d.AddForce(force,ForceMode2D.Impulse);
 	}
 
-	//triggered when mouse-left pressed
-	public void Superpower(){
-		Debug.Log ("Super-- Power");
-	}
-		
+
+    //triggered when mouse-left pressed
+    public void Superpower()
+    {
+        _superpower.Call();
+    }
 }
