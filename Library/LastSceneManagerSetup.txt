@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/AngryBirds/Camera/TestScene/camerascene.unity
+- path: Assets/AngryBirds/Levels/1-1.unity
   isLoaded: 1
   isActive: 1
