@@ -6,5 +6,6 @@ namespace Assets.AngryBirds.UI.levelloaders
 {
     class LevelLoader
     {
+
     }
 }
