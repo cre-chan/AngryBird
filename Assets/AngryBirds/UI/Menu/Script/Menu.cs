@@ -9,17 +9,46 @@ public class Menu : MonoBehaviour
 
     private LevelLoader levelLoader;
     private float theWorldTime;
+
+    public GameObject escMenu;
     // Use this for initialization
     void Start()
     {
         levelLoader = new LevelLoader();
         theWorldTime = Time.timeScale;
+        Time.timeScale = 1.0f;
+        escMenu.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKey(KeyCode.Escape))
+        {
+            ActiveEscMenu();
+        }
+        
+    }
 
+
+    //摁esc可以弹出暂停界面
+    public void ActiveEscMenu()
+    {
+        if (!escMenu.activeSelf)
+        {
+            escMenu.SetActive(true);
+            Pause();
+        }
+    }
+
+    //在esc界面激活的情况下点继续关闭暂停界面
+    public void InActiveEscMenu()
+    {
+        if(escMenu.activeSelf)
+        {
+            escMenu.SetActive(false);
+            Resume();
+        }
     }
 
 
