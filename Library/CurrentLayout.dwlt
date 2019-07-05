@@ -396,23 +396,23 @@ MonoBehaviour:
     height: 662
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: 9afbffff9cfbffff00000000
+    m_SelectedIDs: 0afaffff
+    m_LastClickedID: -1526
+    m_ExpandedIDs: 0efaffff20faffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: UITestV0.1
-      m_OriginalName: UITestV0.1
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -1126
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 4
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
@@ -448,14 +448,14 @@ MonoBehaviour:
     width: 1144
     height: 662
   m_SceneLighting: 1
-  lastFramingTime: 3450.3441125759614
+  lastFramingTime: 27.643818212052874
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -2.7581022, y: 1.6634356, z: -9.958163}
+    m_Target: {x: 572, y: 322.5, z: 0}
     speed: 2
-    m_Value: {x: -2.7581022, y: 1.6634356, z: -9.958163}
+    m_Value: {x: 572, y: 322.5, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -482,9 +482,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 17.787357
+    m_Target: 233.34525
     speed: 2
-    m_Value: 17.787357
+    m_Value: 233.34525
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -604,19 +604,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/AngryBirds/UI/testscenemangae
+    - Assets/AngryBirds
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/AngryBirds/UI/testscenemangae
+  - Assets/AngryBirds
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: D:\AngryBird\others1\AngryBird
+  m_LastProjectPath: D:\AngryBird\new
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 376}
-    m_SelectedIDs: 5c280000
-    m_LastClickedID: 10332
-    m_ExpandedIDs: 0000000086270000de2800009c290000bc290000e4290000e6290000342a0000622a000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 95}
+    m_SelectedIDs: 3e2d0000
+    m_LastClickedID: 11582
+    m_ExpandedIDs: 000000006a2a0000ba2b0000782c0000982c0000c02c0000c22c0000102d00003e2d000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -644,7 +644,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000086270000de2800009c290000bc290000e4290000e6290000342a0000622a0000
+    m_ExpandedIDs: 000000006a2a0000ba2b0000782c0000982c0000c02c0000c22c0000102d00003e2d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
