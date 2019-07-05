@@ -10,43 +10,41 @@ public class Menu : MonoBehaviour
     private LevelLoader levelLoader;
     private float theWorldTime;
 
-    public GameObject escMenu;
     // Use this for initialization
     void Start()
     {
         levelLoader = new LevelLoader();
-        theWorldTime = Time.timeScale;
         Time.timeScale = 1.0f;
-        escMenu.SetActive(false);
+        theWorldTime = Time.timeScale; 
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Escape))
-        {
-            ActiveEscMenu();
-        }
         
     }
 
 
     //摁esc可以弹出暂停界面
-    public void ActiveEscMenu()
+    public void Active()
     {
-        if (!escMenu.activeSelf)
+        if (!gameObject.activeSelf)
         {
-            escMenu.SetActive(true);
+            gameObject.SetActive(true);
+            Debug.Log(gameObject.name+"已激活");
             Pause();
         }
     }
 
+   
     //在esc界面激活的情况下点继续关闭暂停界面
-    public void InActiveEscMenu()
+    public void InActive()
     {
-        if(escMenu.activeSelf)
+        if(gameObject.activeSelf)
         {
-            escMenu.SetActive(false);
+            gameObject.SetActive(false);
+            Debug.Log(gameObject.name + "已关闭");
             Resume();
         }
     }
@@ -77,6 +75,11 @@ public class Menu : MonoBehaviour
     public void Quit()
     {
         levelLoader.Quit();
+    }
+
+    public void NextLevel()
+    {
+        levelLoader.LoadNextLevel();
     }
 
 }
