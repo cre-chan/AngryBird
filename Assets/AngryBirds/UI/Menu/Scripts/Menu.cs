@@ -11,12 +11,12 @@ public class Menu : MonoBehaviour
     private float theWorldTime;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         levelLoader = new LevelLoader();
-        Time.timeScale = 1.0f;
-        theWorldTime = Time.timeScale; 
+        theWorldTime = Time.timeScale;
         gameObject.SetActive(false);
+        Debug.Log(Time.timeScale + "timescale"); /////////////////////////////////////////////////////////////////////////////////////////
     }
 
     // Update is called once per frame
@@ -66,11 +66,10 @@ public class Menu : MonoBehaviour
     }
 
     //重置本关
-    public void Reset()
+    public void ResetScene()
     {
-        levelLoader.ReLoadScene();//这个reset函数名是蓝色的，我怀疑有问题/////////////////////
+        levelLoader.ReLoadScene();
     }
-
     //退出游戏
     public void Quit()
     {

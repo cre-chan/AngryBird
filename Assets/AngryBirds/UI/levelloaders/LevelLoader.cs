@@ -74,11 +74,13 @@ namespace Assets.AngryBirds.UI.levelloaders
             }
         }
 
+
         public void ReLoadScene()
         {
-            string sceneName;
-            sceneName = SceneManager.GetActiveScene().name;
-            Load(sceneName);
+            int sceneIndex;
+            sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            Load(sceneIndex);
+            Time.timeScale = 1.0f;
         }
 
         public void Quit()
