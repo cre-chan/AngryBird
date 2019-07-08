@@ -6,13 +6,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace Assets.AngryBirds.UI.levelloaders
 {
-    class LevelLoader
+    static class LevelLoader
     {
-        private int levelNum;//关卡数量
-        private List<string> levelList = new List<string>();//储存所有关卡的信息
-        private int levelRange;//所有的场景里是关卡的数量。默认从0到levelNum-1是关卡，levelNum是主界面
+        private static int levelNum;//关卡数量
+        private static  List<string> levelList = new List<string>();//储存所有关卡的信息
+        private static  int levelRange;//所有的场景里是关卡的数量。默认从0到levelNum-1是关卡，levelNum是主界面
 
-        public LevelLoader()
+        static LevelLoader()
         {
             levelNum = SceneManager.sceneCountInBuildSettings;
 
@@ -42,7 +42,7 @@ namespace Assets.AngryBirds.UI.levelloaders
 
         }
 
-        public bool Load(int index)//按照index来加载
+        public static bool Load(int index)//按照index来加载
         {
             if (index >= levelRange || index < 0)
             {
@@ -58,7 +58,7 @@ namespace Assets.AngryBirds.UI.levelloaders
             }
         }
 
-        public bool Load(string name)//还用不了，没法把路径中的文件名提取
+        public static bool Load(string name)//还用不了，没法把路径中的文件名提取
         {
 
             if (levelList.Contains(name))
@@ -75,7 +75,7 @@ namespace Assets.AngryBirds.UI.levelloaders
         }
 
 
-        public void ReLoadScene()
+        public static void ReLoadScene()
         {
             int sceneIndex;
             sceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -83,13 +83,13 @@ namespace Assets.AngryBirds.UI.levelloaders
             Time.timeScale = 1.0f;
         }
 
-        public void Quit()
+        public static void Quit()
         {
             Application.Quit();
             Debug.Log("退出游戏");
         }
 
-        public void LoadNextLevel()
+        public static void LoadNextLevel()
         {
             int currLevelIndex = SceneManager.GetActiveScene().buildIndex;
             int nextLevelIndex = currLevelIndex + 1;

@@ -7,12 +7,9 @@ using Assets.AngryBirds.UI.levelloaders;
 public class Menu : MonoBehaviour
 {
 
-    private LevelLoader levelLoader;
-
     // Use this for initialization
     void Awake()
     {
-        levelLoader = new LevelLoader();
         Debug.Log(Time.timeScale + "timescale"); /////////////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -60,18 +57,18 @@ public class Menu : MonoBehaviour
     public void ResetScene()
     {
         Time.timeScale = 1.0f;
-        levelLoader.ReLoadScene();
+        LevelLoader.ReLoadScene();
     }
     //退出游戏
     public void Quit()
     {
-        levelLoader.Quit();
+        LevelLoader.Quit();
     }
 
     public void NextLevel()
     {
         Time.timeScale = 1.0f;
-        levelLoader.LoadNextLevel();
+        LevelLoader.LoadNextLevel();
         
     }
 
