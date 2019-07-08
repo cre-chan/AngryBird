@@ -17,11 +17,11 @@ public class TestWinOrFialController : MonoBehaviour {
 	void Update () {
         if (Input.GetKey("a"))
         {
-            WinMenu.GetComponent<Menu>().Active();
+            WinMenu.GetComponent<Menu>().Activate();
         }
         else if(Input.GetKey("d"))
         {
-            FailMenu.GetComponent<Menu>().Active();
+            FailMenu.GetComponent<Menu>().Activate();
         }
     }
 }

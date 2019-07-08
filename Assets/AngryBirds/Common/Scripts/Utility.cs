@@ -104,3 +104,9 @@ public class FnOnce<R> {
     }
 }
 
+
+
+public interface IControllable {
+    //获得输入并处理输入
+    void GetInput();
+}

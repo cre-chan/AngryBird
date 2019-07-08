@@ -8,26 +8,17 @@ public class Menu : MonoBehaviour
 {
 
     private LevelLoader levelLoader;
-    private float theWorldTime;
 
     // Use this for initialization
     void Awake()
     {
         levelLoader = new LevelLoader();
-        theWorldTime = Time.timeScale;
-        gameObject.SetActive(false);
         Debug.Log(Time.timeScale + "timescale"); /////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-
-    //摁esc可以弹出暂停界面
-    public void Active()
+    //打开窗口
+    public void Activate()
     {
         if (!gameObject.activeSelf)
         {
@@ -39,7 +30,7 @@ public class Menu : MonoBehaviour
 
    
     //在esc界面激活的情况下点继续关闭暂停界面
-    public void InActive()
+    public void Inactivate()
     {
         if(gameObject.activeSelf)
         {
@@ -53,14 +44,14 @@ public class Menu : MonoBehaviour
     //在游戏暂停时调用，将游戏恢复到暂停前的速率
     public void Resume()
     {
-        Time.timeScale = theWorldTime;
+        Time.timeScale = 1.0f;
+        this.Inactivate();
         Debug.Log("游戏继续");
     }
 
     //暂停游戏
     public void Pause()
     {
-        theWorldTime = Time.timeScale;
         Time.timeScale = 0;
         Debug.Log("游戏暂停");
     }
@@ -68,6 +59,7 @@ public class Menu : MonoBehaviour
     //重置本关
     public void ResetScene()
     {
+        Time.timeScale = 1.0f;
         levelLoader.ReLoadScene();
     }
     //退出游戏
@@ -78,7 +70,10 @@ public class Menu : MonoBehaviour
 
     public void NextLevel()
     {
+        Time.timeScale = 1.0f;
         levelLoader.LoadNextLevel();
+        
     }
+
 
 }

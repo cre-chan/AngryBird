@@ -14,7 +14,7 @@ public class TestMenuController : MonoBehaviour {
 	void Update () {
         if(Input.GetKey("a"))
         {
-            PauseMenu.GetComponent<Menu>().Active();
+            PauseMenu.GetComponent<Menu>().Activate();
         }
 		
 	}
