@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/AngryBirds/UI/testscenemangae/tempMainScene.unity
+- path: Assets/AngryBirds/UI/WinOrFail/test_winorfail.unity
   isLoaded: 1
   isActive: 1

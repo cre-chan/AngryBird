@@ -44,14 +44,15 @@ namespace Assets.AngryBirds.UI.levelloaders
 
         public bool Load(int index)//按照index来加载
         {
-            if (index > levelRange || index < 1)
+            if (index >= levelRange || index < 0)
             {
                 Debug.Log("加载失败，关卡数越界");
                 return false;
             }
             else
             {
-                SceneManager.LoadScene(index - 1);
+              
+                SceneManager.LoadScene(index);
                 Debug.Log("按index加载成功:");
                 return true;
             }
@@ -73,18 +74,28 @@ namespace Assets.AngryBirds.UI.levelloaders
             }
         }
 
+
         public void ReLoadScene()
         {
-            string sceneName;
-            sceneName = SceneManager.GetActiveScene().name;
-            SceneManager.LoadScene(sceneName);
-            Debug.Log("重新加载本关");
+            int sceneIndex;
+            sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            Load(sceneIndex);
+            Time.timeScale = 1.0f;
         }
 
         public void Quit()
         {
             Application.Quit();
             Debug.Log("退出游戏");
+        }
+
+        public void LoadNextLevel()
+        {
+            int currLevelIndex = SceneManager.GetActiveScene().buildIndex;
+            int nextLevelIndex = currLevelIndex + 1;
+            Load(nextLevelIndex);
+
+
         }
     }
 }
