@@ -42,7 +42,7 @@ public class Menu : MonoBehaviour
 
 
     //在游戏暂停时调用，将游戏恢复到暂停前的速率
-    public void Resume()
+    public void  Resume()
     {
         Time.timeScale = 1.0f;
         this.Inactivate();

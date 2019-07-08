@@ -58,6 +58,12 @@ public struct Existence<T>
     {
         return content;
     }
+
+    public Existence<U> To<U>()
+        where U:class,T
+    {
+        return new Existence<U>((U)this.Unwrap());
+    }
 }
 
 
@@ -106,7 +112,4 @@ public class FnOnce<R> {
 
 
 
-public interface IControllable {
-    //获得输入并处理输入
-    void GetInput();
-}
+

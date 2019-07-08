@@ -3,19 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dummy : MonoBehaviour,IControllable {
+    [SerializeField]
+    private Pause pause;
+    [SerializeField]
+    private Win win;
+    [SerializeField]
+    private Fail fail;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        
-    }
+    private Controller controller;
 
-    public void GetInput()
+    public IControllable GetInput()
     {
-        Debug.Log("Scene in control");
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            this.pause.Activate();
+            controller.BindsTo(new Existence<Pause>(pause));
+            return this.pause;
+        }
+
+        Debug.Log("Dummy");
+
+        return null;
     }
+
+    public void BindController(Controller controller)
+    {
+        this.controller = controller;
+    }
+
 }

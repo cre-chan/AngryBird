@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/AngryBirds/UI/WinOrFail/test_winorfail.unity
+- path: Assets/AngryBirds/UI/UISystem/UIIntergrity.unity
   isLoaded: 1
   isActive: 1
