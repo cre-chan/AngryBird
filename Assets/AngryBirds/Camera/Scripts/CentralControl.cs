@@ -4,19 +4,30 @@ using UnityEngine;
 
 
 
-partial class MyCamara {
+partial class MyCamara:IControllable {
     private Bird activeBird;//the currently on-fly bird, add by Watch()
     [SerializeField]
     private float deadSpeed;
     [SerializeField]
     private SlingShot shooter;
-
-    private uint currentBird;
+    [SerializeField]
+    private MyCamara sceneCamera;
+    
     [SerializeField]
     private Bird[] birds;//initialized at Start(), all the birds in the scene
                               //access via fetchBird(), the count of birds are used to indicate failure
+    private uint currentBird;
 
-    //used to invoke the wi
+    [SerializeField]
+    private Pause pauseMenu;
+    [SerializeField]
+    private Win winMenu;
+    [SerializeField]
+    private Fail failMenu;
+
+    private Controller activeControl;
+
+    //保证胜利和失败只被调用一次
     InvokerOnce finalAction=new InvokerOnce();
     public enum States
     {
@@ -40,6 +51,7 @@ partial class MyCamara {
         public Vector3 pan;//indicates the direction a camera should go (normalized)
         public float scale;//indicates how much the camera's view should scale
         public bool clickOnAir;//
+        public bool escPressed;
 
         //get those nasty input done.
         public Move(MyCamara cam)
@@ -52,12 +64,15 @@ partial class MyCamara {
             this.pan.Normalize();
             this.clickOnAir = cam.CurrentState == States.OnWatch && Input.GetMouseButton(0);
             this.scale = -Input.GetAxis("Mouse ScrollWheel");
+            this.escPressed = Input.GetKeyDown(KeyCode.Escape);
         }
     }
+
 
     //used to setup the whole scene
     void Start()
     {
+        //初始化状态
         currentBird = 0;
         if (shooter == null)
             Debug.LogError("Link a shooter to the MyCamera component");
@@ -67,19 +82,22 @@ partial class MyCamara {
             Debug.LogError("No birds in the scene");
         if (sceneBorder == null)
             Debug.LogError("Scene unbounded with potential error");
+        if (sceneCamera==null)
+            Debug.LogError("No scene camera detected!");
+
+        activeControl = Controller.From(new Existence<MyCamara>(sceneCamera));
+        pauseMenu.BindController(activeControl);
+        winMenu.BindController(activeControl);
+        failMenu.BindController(activeControl);
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        //get some input
-        var mov = new Move(this);
-
-        this.Translate(mov.pan * panSpeed * Time.deltaTime);
-        this.Scale(mov.scale * scaleRate * Time.deltaTime);
-        if (mov.clickOnAir)
-            activeBird.Superpower();
+        this.activeControl.GetInput();
     }
+
 
     void FixedUpdate() {
         //judge if the bird is within the scene or the speed is too low
@@ -101,15 +119,24 @@ partial class MyCamara {
 
         if (this.Fail()){
             finalAction.call(
-                () => Debug.Log("You Failed!")
+                () => {
+                    this.activeControl.BindsTo(
+                    new Existence<Fail>(failMenu)
+                    );
+                    failMenu.Activate();
+                }
                 );
             return;
         }
 
         if (this.Win()) {
-            finalAction.call(
-                () => Debug.Log("You Won!")
+            finalAction.call(() => {
+                this.activeControl.BindsTo(
+                new Existence<Win>(winMenu)
                 );
+                winMenu.Activate();
+            }
+               );
             return;
         }
 
@@ -125,7 +152,7 @@ partial class MyCamara {
         }
     }
 
-
+    //取消监听鸟
     public void UnWatch() {
         if (this.CurrentState == States.OnWatch){
             activeBird = null;
@@ -134,7 +161,7 @@ partial class MyCamara {
         }
     }
 
-
+    //从场景中所有鸟中抽走一只
     public Bird FetchBird() {
         if (currentBird>=birds.Length)
             return null;
@@ -142,19 +169,49 @@ partial class MyCamara {
             return this.birds[currentBird++];
     }
 
-    //You win only when there's no pig left
+
+    //判断玩家是否赢了，通过判断场景里打着猪tag的对象数量是否为0
     private bool Win() {
         return GameObject.FindGameObjectsWithTag("pig").Length == 0;
     }
 
+    //判断玩家是否输了（通过场景里存活的鸟的数量
     private bool Fail() {
         var fail = true;
         foreach (var bird in birds)
             fail = bird.isDead && fail;
-        return fail;
+        return fail&&!this.Win();
     }
+
 
     private void Kill(Existence<Bird> bird) {
         bird.Unwrap().isDead = true;
+    }
+
+
+    public IControllable GetInput() {
+        //get some input
+        var mov = new Move(this.sceneCamera);
+
+        this.sceneCamera.Translate(mov.pan * panSpeed * Time.deltaTime);
+        this.sceneCamera.Scale(mov.scale * scaleRate * Time.deltaTime);
+
+        //如果在鸟飞行过程中按鼠标左键，则发动能力
+        if (mov.clickOnAir)
+            activeBird.Superpower();
+
+        if (mov.escPressed) {
+            this.activeControl.BindsTo(
+                new Existence<Pause>(pauseMenu)
+                );
+            pauseMenu.Activate();
+        }
+
+
+        return null;
+    }
+
+    public void BindController(Controller controller) {
+
     }
 }
