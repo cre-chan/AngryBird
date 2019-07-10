@@ -8,7 +8,6 @@ public class Fail : Menu,IControllable {
     // Use this for initialization
     public IControllable GetInput()
     {
-        Debug.Log("Fail");
         return null;//do nothing and do not transit
     }
 

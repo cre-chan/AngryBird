@@ -6,7 +6,7 @@ using UnityEngine;
 //this file handles the interaction and some nasty scripts,
 partial class SlingShot {
     [SerializeField]
-    private MyCamara supervisor;
+    private CentralControl supervisor;
 
     //used to indicate the strength used to shoot the bird.
     //It restricts vec's magnitude to a range.

@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-partial class MyCamara:IControllable {
+partial class CentralControl:MonoBehaviour,IControllable {
     private Bird activeBird;//the currently on-fly bird, add by Watch()
     [SerializeField]
     private float deadSpeed;
@@ -18,12 +18,20 @@ partial class MyCamara:IControllable {
                               //access via fetchBird(), the count of birds are used to indicate failure
     private uint currentBird;
 
+    //场景中存在的其他控制
     [SerializeField]
     private Pause pauseMenu;
     [SerializeField]
     private Win winMenu;
     [SerializeField]
     private Fail failMenu;
+
+    [SerializeField]
+    private float panSpeed;
+    [SerializeField]
+    private float scaleRate;
+    [SerializeField]
+    private Collider2D sceneBorder;
 
     private Controller activeControl;
 
@@ -54,7 +62,7 @@ partial class MyCamara:IControllable {
         public bool escPressed;
 
         //get those nasty input done.
-        public Move(MyCamara cam)
+        public Move(CentralControl cam)
         {
             this.pan = new Vector3(
                 Input.GetAxis("Horizontal"),
@@ -85,7 +93,8 @@ partial class MyCamara:IControllable {
         if (sceneCamera==null)
             Debug.LogError("No scene camera detected!");
 
-        activeControl = Controller.From(new Existence<MyCamara>(sceneCamera));
+        //初始控制由中央控制脚本本身
+        activeControl = Controller.From(new Existence<CentralControl>(this));
         pauseMenu.BindController(activeControl);
         winMenu.BindController(activeControl);
         failMenu.BindController(activeControl);
@@ -191,10 +200,10 @@ partial class MyCamara:IControllable {
 
     public IControllable GetInput() {
         //get some input
-        var mov = new Move(this.sceneCamera);
+        var mov = new Move(this);
 
-        this.sceneCamera.Translate(mov.pan * panSpeed * Time.deltaTime);
-        this.sceneCamera.Scale(mov.scale * scaleRate * Time.deltaTime);
+        this.sceneCamera.Translate(mov.pan * panSpeed * Time.deltaTime,sceneBorder);
+        this.sceneCamera.Scale(mov.scale * scaleRate * Time.deltaTime, sceneBorder);
 
         //如果在鸟飞行过程中按鼠标左键，则发动能力
         if (mov.clickOnAir)

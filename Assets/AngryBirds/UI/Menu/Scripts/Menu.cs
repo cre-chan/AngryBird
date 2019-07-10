@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.AngryBirds.UI.levelloaders;
@@ -67,9 +68,15 @@ public class Menu : MonoBehaviour
 
     public void NextLevel()
     {
-        Time.timeScale = 1.0f;
-        LevelLoader.LoadNextLevel();
-        
+        try
+        {
+            LevelLoader.LoadNextLevel();
+            Time.timeScale = 1.0f;
+        }
+        catch (IndexOutOfRangeException err) {
+            Debug.Log("You succeeded!!!!");
+        }
+
     }
 
 

@@ -54,19 +54,18 @@ namespace Assets.AngryBirds.UI.levelloaders
         }
 
         //按照index来加载scene
-        public static bool Load(uint index)
+        public static void Load(uint index)
         {
             if (index >= levelRange)
             {
-                Debug.Log("加载失败，关卡数越界");
-                return false;
+                Debug.LogError("加载失败，关卡数越界");
+                throw new IndexOutOfRangeException("加载失败，关卡数越界");
             }
             else
             {
               
                 SceneManager.LoadScene((int)index);
                 Debug.Log("按index加载成功:");
-                return true;
             }
         }
 
