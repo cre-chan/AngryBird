@@ -73,7 +73,7 @@ public class Menu : MonoBehaviour
             LevelLoader.LoadNextLevel();
             Time.timeScale = 1.0f;
         }
-        catch (IndexOutOfRangeException err) {
+        catch (IndexOutOfRangeException) {
             Debug.Log("You succeeded!!!!");
         }
 

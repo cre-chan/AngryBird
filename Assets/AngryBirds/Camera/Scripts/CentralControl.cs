@@ -70,6 +70,9 @@ partial class CentralControl:MonoBehaviour,IControllable {
                 0
             );
             this.pan.Normalize();
+
+
+
             this.clickOnAir = cam.CurrentState == States.OnWatch && Input.GetMouseButton(0);
             this.scale = -Input.GetAxis("Mouse ScrollWheel");
             this.escPressed = Input.GetKeyDown(KeyCode.Escape);
