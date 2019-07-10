@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Fail : Menu,IControllable {
 
-    private Controller controller;
 
     // Use this for initialization
     public IControllable GetInput()
@@ -14,7 +13,7 @@ public class Fail : Menu,IControllable {
     }
 
     public void BindController(Controller controller) {
-        this.controller = controller;
+
     }
 }
 
