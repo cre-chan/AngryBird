@@ -18,7 +18,12 @@ namespace Assets.AngryBirds.UI.levelloaders
         private static int levelRange;//关卡scene数量。默认从0到levelNum-1是关卡，levelNum是主界面
         private static  List<string> levelList = new List<string>();//储存所有关卡的名字
 
-        private static LevelRecordLoader levelRecordLoader;//这个是游戏记录管理器
+
+        public static int LEVELRANGE
+        {
+            get { return levelRange; }
+        }
+
 
         //构造函数
         static LevelLoader()
@@ -27,11 +32,9 @@ namespace Assets.AngryBirds.UI.levelloaders
             levelNum = SceneManager.sceneCountInBuildSettings;
             if (levelNum <= 1)
             {
-                Debug.LogError("buildindex的数量有问题");
+                Debug.Log("buildindex的数量有问题");
                 return;
             }
-
-
 
             levelRange = levelNum - 1;
             for (int i = 0; i < levelNum; i++)
@@ -48,7 +51,7 @@ namespace Assets.AngryBirds.UI.levelloaders
                 {
                     Debug.Log("获取关卡错误，head=" + head + "end=" + end);
                 }
-                levelRecordLoader = new LevelRecordLoader(levelNum);
+
             }
 
         }
@@ -69,6 +72,19 @@ namespace Assets.AngryBirds.UI.levelloaders
             }
         }
 
+        public static void Load(string name)
+        {
+            if(!levelList.Contains(name))
+            {
+                Debug.LogError("加载失败，无此关卡名字");
+                throw new IndexOutOfRangeException("加载失败，关卡数越界");
+            }
+            else
+            {
+                SceneManager.LoadScene(name);
+                Debug.Log("按index加载成功:");
+            }
+        }
 
         //重新加载scene
         public static void ReLoadScene()
@@ -94,6 +110,18 @@ namespace Assets.AngryBirds.UI.levelloaders
         public static uint GetCurrIndex()
         {
             return (uint)SceneManager.GetActiveScene().buildIndex;
+
+        }
+
+        public static string GetName(uint index)
+        {
+            if (index >= levelRange)
+            {
+                Debug.LogError("获得名字失败，关卡数越界");
+                throw new IndexOutOfRangeException("获得名字失败，关卡数越界");
+            }
+            else
+                return levelList[(int)index];
         }
 
     }

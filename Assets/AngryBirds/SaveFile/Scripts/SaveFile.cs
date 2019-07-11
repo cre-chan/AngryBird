@@ -19,10 +19,10 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
     [Serializable]
     class LevelRecord
     {
-        private uint index;
+        private int index;
         private Nullable<int> maxLevelRecord;
 
-        public uint INDEX
+        public int INDEX
         {
             get { return index; }
         }
@@ -33,7 +33,7 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
             set { maxLevelRecord = value; }
         }
 
-        public LevelRecord(uint newIndex, Nullable<int> newRecord)
+        public LevelRecord(int newIndex, Nullable<int> newRecord)
         {
             index = newIndex;
             maxLevelRecord = newRecord;
@@ -55,15 +55,13 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
         //构造函数,第一个if是重新初始化，平时请关掉。第二个if是加载record
         public LevelRecordLoader(int levelCount)
         {
-
-
             try
             {
                 LoadLevelRecord();
             }
             catch (Exception err) {
                 Debug.Log("Internal error occured."+err.Message);
-                progress = new List<LevelRecord>(levelCount);
+                progress = new List<LevelRecord>((int)levelCount);
             }
         }
 
@@ -85,6 +83,7 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
                 var bf = new BinaryFormatter();
                 bf.Serialize(fs, progress);
                 Debug.Log("存档");
+
             }
         }
 
@@ -99,6 +98,7 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
         }
 
         //比较record大小，如果currRecord大，或者没打过这关，则更新对应关卡的记录。不大则不做操作。因为要保证打完游戏后立即关闭游戏记录还在，所以每次更新都执行一次存档。这点文件应该不会影响性能
+
         public bool CompareMaxRecord(uint index, int currRecord)
         {
             Nullable<int> maxRecord = GetMaxRecord(index);
@@ -123,7 +123,7 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
         }
 
         //获得maxrecord
-        private Nullable<int> GetMaxRecord(uint index)
+        public Nullable<int> GetMaxRecord(uint index)
         {
             try {
                 return progress[(int)index].MAXLEVELRECORD;
@@ -149,6 +149,20 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
                 throw err;
             }
             
+        }
+
+        //重新初始化
+        public void ResetAllRecord(int count)
+        {
+            progress = new List<LevelRecord>();
+            Debug.Log("重置存档");
+            for(int i=0;i<count;i++)
+            {
+
+                progress.Add(new LevelRecord(i, null));
+            }
+            SaveLevelRecord();
+
         }
 
     }
