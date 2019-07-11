@@ -8,35 +8,32 @@ using UnityEngine;
  包括摄像机和中央控制脚本。分为MyCamera.cs和CentralControl.cs两部分。MyCamera.cs主要负责摄像机本身。
  CentralControl.cs负责游戏循环和各种信息交流。目前CentralControl仍不成熟，需要改进。
 
+ 摄像机可以没有移动边界，但是场景不可以没有边界。因此，为了降低耦合度，决定由调用者传入边界，来保证摄像机在场景内.
+
      */
 
 [RequireComponent(typeof(Camera))]
 public partial class MyCamara : MonoBehaviour {
-    [SerializeField]
-	private float panSpeed;
-    [SerializeField]
-    private float scaleRate;
+
 
     [SerializeField]
     private float maxSize;//determines the max Size of camera scale
     [SerializeField]
     private float minSize;//the minimum
-    [SerializeField]
-    private Collider2D sceneBorder;//this is optional, if absent,the camera is unbound
 
 
 
 
 	//restricts the translation in some area
-	void Translate(Vector3 direct){
+	public void Translate(Vector3 direct,Collider2D sceneBorder=null){
         this.transform.Translate(direct);
         if (sceneBorder != null)
-            AdjustPos();
+            AdjustPos(sceneBorder);
     }
 
 
     //we always adjust position in order to keep the camera in scene.The sceneBorder should always be non-null.
-    void AdjustPos() {
+    void AdjustPos(Collider2D sceneBorder=null) {
         var border=Utility.BoundToRect(sceneBorder.bounds);
         var camBorder = Utility.GetCamViewRect(GetComponent<Camera>());
 
@@ -60,7 +57,7 @@ public partial class MyCamara : MonoBehaviour {
     }
 
 
-    void Scale(float scaleDiff) {
+    public void Scale(float scaleDiff,Collider2D sceneBorder = null) {
         var endScale = GetComponent<Camera>().orthographicSize + scaleDiff;
         //ensures scale between a valid range
         endScale = Mathf.Clamp(endScale, minSize, maxSize);
@@ -68,7 +65,7 @@ public partial class MyCamara : MonoBehaviour {
 
         //this ensures no null-reference exception
         if (sceneBorder != null)
-            AdjustPos();
+            AdjustPos(sceneBorder);
     }
 
 

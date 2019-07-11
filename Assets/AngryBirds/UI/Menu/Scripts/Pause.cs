@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pause: Menu,IControllable{
     [SerializeField]
-    private MyCamara scene;
+    private CentralControl scene;
 
     private Controller controller;
     public IControllable GetInput() {
@@ -21,7 +21,7 @@ public class Pause: Menu,IControllable{
     public new void  Resume() {
         //use this to call the Resume in base class
         ((Menu)this).Resume();
-        controller.BindsTo(new Existence<MyCamara>(scene));
+        controller.BindsTo(new Existence<CentralControl>(scene));
     }
 
     public void BindController(Controller controller)

@@ -1,0 +1,9 @@
+diff a/Assets/AngryBirds/Camera/Scripts/CentralControl.cs b/Assets/AngryBirds/Camera/Scripts/CentralControl.cs	(rejected hunks)
+@@ -4,6 +4,7 @@
+ 
+ 
+ 
++partial class CentralControl:MonoBehaviour,IControllable {
+     private Bird activeBird;//the currently on-fly bird, add by Watch()
+     [SerializeField]
+     private float deadSpeed;
