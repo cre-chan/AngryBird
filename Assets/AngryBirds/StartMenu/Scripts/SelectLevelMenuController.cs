@@ -7,7 +7,6 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEditor;
 using Assets.AngryBirds.UI.levelloaders;
 using Assets.AngryBirds.SaveFile.Scripts.SaveFile;
 
@@ -87,7 +86,7 @@ public class SelectLevelMenuController : MonoBehaviour {
         }
 
 
-        gameObject.SetActive(false);//因为startmenu菜单有要调用本菜单的函数的情况，所以，一定要保证在ide中selectmenu是可用的。在这里进行关闭
+        
     }
 	
 	// Update is called once per frame

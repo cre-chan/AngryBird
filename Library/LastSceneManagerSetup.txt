@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/AngryBirds/Levels/1-2.unity
+- path: Assets/AngryBirds/StartMenu/StartInterface.unity
   isLoaded: 1
   isActive: 1

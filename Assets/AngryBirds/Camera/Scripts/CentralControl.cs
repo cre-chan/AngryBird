@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 
+partial class CentralControl:MonoBehaviour,IControllable {
     private Bird activeBird;//the currently on-fly bird, add by Watch()
     [SerializeField]
     private float deadSpeed;

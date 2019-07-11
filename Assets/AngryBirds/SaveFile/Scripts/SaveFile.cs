@@ -6,7 +6,6 @@ using System.Runtime.Serialization;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 
 
 
@@ -50,18 +49,19 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
     class LevelRecordLoader
     {
         [SerializeField] private List<LevelRecord> progress;//储存所有levelrecord信息
-        private readonly string informationPath = Application.dataPath + "/AngryBirds/SaveFile/SaveData" + "/SaveData.txt";//文件储存的地址
+        private readonly string informationPath = Application.dataPath + "/SaveData.txt";//文件储存的地址
        
         //构造函数,第一个if是重新初始化，平时请关掉。第二个if是加载record
         public LevelRecordLoader(int levelCount)
         {
+           
             try
             {
                 LoadLevelRecord();
             }
             catch (Exception err) {
                 Debug.Log("Internal error occured."+err.Message);
-                progress = new List<LevelRecord>((int)levelCount);
+                ResetAllRecord(levelCount);
             }
         }
 

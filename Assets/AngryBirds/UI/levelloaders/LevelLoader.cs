@@ -6,7 +6,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 using Assets.AngryBirds.SaveFile.Scripts.SaveFile;
 
 

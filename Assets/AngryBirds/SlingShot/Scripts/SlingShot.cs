@@ -64,7 +64,11 @@ public partial class SlingShot : MonoBehaviour{
         if (!this.IsLoaded) {
             this.bullet = bullet.Unwrap();
             this.bullet.physicsLock = true;
-            this.bullet.transform.position = positioner.position;
+            this.bullet.transform.position = new Vector3(
+                positioner.position.x,
+                positioner.position.y,
+                this.bullet.transform.position.z
+                );
         }
 		
 	}
@@ -78,7 +82,8 @@ public partial class SlingShot : MonoBehaviour{
             this.bullet.transform.position = new Vector3(
                 positioner.transform.position.x - strength.vec.x,
                 positioner.transform.position.y - strength.vec.y,
-                0
+                //0
+                this.bullet.transform.position.z
                 );
         }
     }
