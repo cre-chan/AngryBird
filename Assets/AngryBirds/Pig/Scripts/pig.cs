@@ -7,39 +7,18 @@ public class pig : MonoBehaviour {
 
     public float HP;
     public float DamageRate;
-    public GameObject pigBoom;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<Rigidbody2D>() == null)
             return;
 
-        if(collision.gameObject.tag=="bird")
+        float damage = Mathf.Pow(collision.rigidbody.velocity.magnitude,2) * collision.rigidbody.mass * DamageRate;
+        HP -= damage;
+        if (HP <= 0)
         {
-            Instantiate(pigBoom, transform);
             Destroy(gameObject);
-           
-            
-            //此处应生成动画
-        }
-        else
-        {
-            float damage = collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude * DamageRate;
-            HP -= damage;
-            if(HP<=0)
-            {
-                Instantiate(pigBoom, transform);
-                Destroy(gameObject);
-              
-            }
+
         }
     }
 }

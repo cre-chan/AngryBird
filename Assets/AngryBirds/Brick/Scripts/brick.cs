@@ -6,26 +6,17 @@ public class brick : MonoBehaviour {
 
     public float HP;
     public float DamageRate;
-    public GameObject brickBoom;
 	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Rigidbody2D>() == null)
+        if (collision.rigidbody == null)
             return;
-        float damage = collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude * DamageRate;
+        float damage =Mathf.Pow(collision.rigidbody.velocity.magnitude,2) * collision.rigidbody.mass * DamageRate;
         HP -= damage;
         if(HP<=0)
         {
-            Instantiate(brickBoom, transform.position, transform.rotation);
+            
             Destroy(gameObject);
            
 
