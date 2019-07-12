@@ -12,7 +12,7 @@ public class testsavefilecontroller : MonoBehaviour {
 
 
 
-        LevelRecordLoader temp = new LevelRecordLoader(12);
+        LevelRecordLoader temp = LevelRecordLoader.GetInstance();
         temp.ShowAllLevelRecord();
 
         temp.CompareMaxRecord(1,3);

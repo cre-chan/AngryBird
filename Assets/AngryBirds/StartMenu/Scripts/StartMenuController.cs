@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Assets.AngryBirds.SaveFile.Scripts.SaveFile;
 
 
 
@@ -16,16 +17,11 @@ public class StartMenuController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        LevelRecordLoader.ForceLoad();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     //从levelloader和levelrecordloader中获得关卡的信息
-    
     //进入选择关卡界面
     public void SelectLevel()
     {

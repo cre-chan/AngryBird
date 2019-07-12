@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Assets.AngryBirds.UI.levelloaders;
 
 
 
@@ -48,11 +48,32 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
     //在构造函数中有用来初始化的InitializeLevelRecord(int numberOfRecord),需要重新初始化的时候吧构造函数里的注释去掉再启动就能初始化
     class LevelRecordLoader
     {
-        [SerializeField] private List<LevelRecord> progress;//储存所有levelrecord信息
+        [SerializeField]
+        private List<LevelRecord> progress;//储存所有levelrecord信息
         private readonly string informationPath = Application.dataPath + "/SaveData.txt";//文件储存的地址
+
+        //通用的实例，用于记录最新进度
+        private static LevelRecordLoader instance;
+
+        public static LevelRecordLoader GetInstance() {
+            if (instance == null) {
+                instance = new LevelRecordLoader(LevelLoader.LEVELRANGE);
+                return instance;
+            }
+            else {
+                return instance;
+            }
+
+        }
+
+        //强制重新加载存档信息
+        public static void ForceLoad() {
+            instance = new LevelRecordLoader(LevelLoader.LEVELRANGE);
+        }
+        
        
         //构造函数,第一个if是重新初始化，平时请关掉。第二个if是加载record
-        public LevelRecordLoader(int levelCount)
+        private LevelRecordLoader(int levelCount)
         {
            
             try
@@ -65,7 +86,7 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
             }
         }
 
-        //读取所有levelrecord,不处理异常，让调用者处理异常（内部错误无法修复，应该在更高层处理
+        //读取所有levelrecord,不处理异常，让调用者处理异常（内部错误无法修复，应该在更高层处理,为避免外部误读，选择private访问
         private void LoadLevelRecord()
         {
             using (var fs = File.Open(informationPath, FileMode.Open))
@@ -76,8 +97,8 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
             }
         }
 
-        //保存所有levelrecord到磁盘
-        private void SaveLevelRecord()
+        //保存所有levelrecord到磁盘,允许外部调用
+        public void SaveLevelRecord()
         {
             using (var fs = File.Create(informationPath)) {
                 var bf = new BinaryFormatter();

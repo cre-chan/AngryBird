@@ -39,11 +39,14 @@ class LevelInformation
 
 //因为startmenu菜单有要调用本菜单的函数的情况，所以，一定要保证在ide中selectmenu是可用的，不要把√取消掉
 public class SelectLevelMenuController : MonoBehaviour {
-
-    public GameObject []buttonCollect;//按钮集合
-    public GameObject startMenu;//另一个菜单，用来两个菜单之间互相唤醒
-    public GameObject right;//右翻页按钮
-    public GameObject left;//左翻页按钮
+    [SerializeField]
+    private Button[] buttonCollect;//按钮集合
+    [SerializeField]
+    private StartMenuController startMenu;//另一个菜单，用来两个菜单之间互相唤醒
+    [SerializeField]
+    private Button right;//右翻页按钮
+    [SerializeField]
+    private Button left;//左翻页按钮
 
 
     private LevelRecordLoader levelRecordLoader;//levelrecordloader实例
@@ -61,7 +64,7 @@ public class SelectLevelMenuController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         levelCount = LevelLoader.LEVELRANGE;//从levelloader中得到关卡总数量;
-        levelRecordLoader = new LevelRecordLoader(levelCount);
+        levelRecordLoader = LevelRecordLoader.GetInstance();
         levelInformation = new List<LevelInformation>();
         onePageCount = (uint)buttonCollect.Length;
 
@@ -89,10 +92,6 @@ public class SelectLevelMenuController : MonoBehaviour {
         
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void RightTrun()
     {
@@ -182,7 +181,7 @@ public class SelectLevelMenuController : MonoBehaviour {
     //返回开始界面
     public void ReturnStart()
     {
-        startMenu.SetActive(true);
+        startMenu.gameObject.SetActive(true);
         this.gameObject.SetActive(false);
     }
    
@@ -197,6 +196,8 @@ public class SelectLevelMenuController : MonoBehaviour {
     public void LoadContinueLevel()
     {
         LevelLoader.Load(nextChallengeLevelIndex);
+        Debug.Log("NextLevel:");
+        Debug.Log(nextChallengeLevelIndex);
     }
 
     //关卡选择按钮点击监听(可以的话可以吧所有按钮都监听上)

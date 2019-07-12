@@ -88,7 +88,7 @@ namespace Assets.AngryBirds.UI.levelloaders
         //重新加载scene
         public static void ReLoadScene()
         {
-            Load(GetCurrIndex());
+            Load(GetCurIndex());
         }
 
         //退出游戏
@@ -102,11 +102,11 @@ namespace Assets.AngryBirds.UI.levelloaders
         //加载下一关
         public static void LoadNextLevel()
         {
-            Load(GetCurrIndex() + 1);
+            Load(GetCurIndex() + 1);
         }
 
         //获得当前屏幕的index
-        public static uint GetCurrIndex()
+        public static uint GetCurIndex()
         {
             return (uint)SceneManager.GetActiveScene().buildIndex;
 
