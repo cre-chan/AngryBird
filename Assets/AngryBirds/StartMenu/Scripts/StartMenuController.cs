@@ -7,6 +7,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Assets.AngryBirds.SaveFile.Scripts.SaveFile;
+using Assets.AngryBirds.UI.levelloaders;
 
 
 
@@ -39,6 +40,7 @@ public class StartMenuController : MonoBehaviour {
     //继续上一次的关卡，调用了另一个界面的函数。因为我把和关卡有关的都放在另一个menu上了。
     public void ContinueLevel()
     {
-        SelectLevelMenu.GetComponent<SelectLevelMenuController>().LoadContinueLevel();
+        var last_level = LevelRecordLoader.GetInstance().curLevel;
+        LevelLoader.Load(last_level);
     }
 }

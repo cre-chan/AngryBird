@@ -78,8 +78,7 @@ public class Menu : MonoBehaviour
         }
         catch (IndexOutOfRangeException) {
             Debug.Log("You succeeded!!!!");
-            LevelRecordLoader.GetInstance().SaveLevelRecord();
-            LevelRecordLoader.GetInstance().ShowAllLevelRecord();
+
         }
 
     }

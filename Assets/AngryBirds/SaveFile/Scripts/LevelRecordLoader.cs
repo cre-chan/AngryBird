@@ -50,6 +50,8 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
     {
         [SerializeField]
         private List<LevelRecord> progress;//储存所有levelrecord信息
+        [SerializeField]
+        public uint curLevel;//当前进度在哪一个关卡
         private readonly string informationPath = Application.dataPath + "/SaveData.txt";//文件储存的地址
 
         //通用的实例，用于记录最新进度
@@ -83,6 +85,7 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
             catch (Exception err) {
                 Debug.Log("Internal error occured."+err.Message);
                 ResetAllRecord(levelCount);
+                curLevel = 0;
             }
         }
 
@@ -93,6 +96,7 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
             {
                 var bf = new BinaryFormatter();
                 progress = (List<LevelRecord>)bf.Deserialize(fs);
+                curLevel=(uint)bf.Deserialize(fs);
                 Debug.Log("存档读取成功");
             }
         }
@@ -103,6 +107,7 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
             using (var fs = File.Create(informationPath)) {
                 var bf = new BinaryFormatter();
                 bf.Serialize(fs, progress);
+                bf.Serialize(fs, curLevel);
                 Debug.Log("存档");
 
             }

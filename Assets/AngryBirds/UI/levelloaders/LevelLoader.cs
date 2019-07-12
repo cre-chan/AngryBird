@@ -67,6 +67,7 @@ namespace Assets.AngryBirds.UI.levelloaders
             {
               
                 SceneManager.LoadScene((int)index);
+                LevelRecordLoader.GetInstance().curLevel = index;
                 Debug.Log("按index加载成功:");
             }
         }
@@ -95,6 +96,8 @@ namespace Assets.AngryBirds.UI.levelloaders
         public static void Quit()
         {
             Debug.Log("退出游戏");
+            LevelRecordLoader.GetInstance().SaveLevelRecord();
+            LevelRecordLoader.GetInstance().ShowAllLevelRecord();
             Application.Quit();
             
         }
