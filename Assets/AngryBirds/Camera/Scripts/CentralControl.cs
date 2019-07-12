@@ -18,7 +18,7 @@ partial class CentralControl:MonoBehaviour,IControllable {
     private Bird[] birds;//initialized at Start(), all the birds in the scene
                               //access via fetchBird(), the count of birds are used to indicate failure
     private uint currentBird;
-
+    
     //场景中存在的其他控制
     [SerializeField]
     private Pause pauseMenu;

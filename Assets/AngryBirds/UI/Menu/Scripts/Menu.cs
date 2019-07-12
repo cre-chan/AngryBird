@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 //本文件内的函数均为UI控件触发的函数，功能重叠请在公共脚本LevelLoader里合并！
 public class Menu : MonoBehaviour
 {
-
+    [SerializeField]
+    private Image confirm;
     // Use this for initialization
     void Awake()
     {
@@ -63,7 +65,7 @@ public class Menu : MonoBehaviour
     //退出游戏
     public void Quit()
     {
-        LevelLoader.Quit();
+        confirm.gameObject.SetActive(true);
     }
 
     public void NextLevel()

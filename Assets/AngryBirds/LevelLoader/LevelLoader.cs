@@ -71,19 +71,7 @@ using UnityEngine.SceneManagement;
             }
         }
 
-        public static void Load(string name)
-        {
-            if(!levelList.Contains(name))
-            {
-                Debug.LogError("加载失败，无此关卡名字");
-                throw new IndexOutOfRangeException("加载失败，关卡数越界");
-            }
-            else
-            {
-                SceneManager.LoadScene(name);
-                Debug.Log("按index加载成功:");
-            }
-        }
+
 
         //重新加载scene
         public static void ReLoadScene()

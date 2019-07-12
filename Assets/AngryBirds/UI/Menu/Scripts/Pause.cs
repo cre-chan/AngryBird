@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Pause: Menu,IControllable{
     [SerializeField]
     private CentralControl scene;
+
 
     private Controller controller;
     public IControllable GetInput() {
