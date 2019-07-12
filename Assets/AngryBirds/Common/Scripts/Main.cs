@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Assets.AngryBirds.UI.levelloaders;
 
-namespace Assets.AngryBirds.Common.Scripts
-{
+
+
     public static class Main
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -16,6 +15,3 @@ namespace Assets.AngryBirds.Common.Scripts
          
         }
     }
-
-       
-}

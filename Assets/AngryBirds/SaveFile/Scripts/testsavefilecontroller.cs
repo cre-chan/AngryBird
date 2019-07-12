@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Assets.AngryBirds.UI.levelloaders;
-using Assets.AngryBirds.SaveFile.Scripts.SaveFile;
 public class testsavefilecontroller : MonoBehaviour {
 
     public GameObject overRecord;

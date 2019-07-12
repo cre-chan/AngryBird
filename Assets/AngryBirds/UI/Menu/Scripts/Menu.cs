@@ -2,8 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.AngryBirds.UI.levelloaders;
-using Assets.AngryBirds.SaveFile.Scripts.SaveFile;
+
 
 //本文件内的函数均为UI控件触发的函数，功能重叠请在公共脚本LevelLoader里合并！
 public class Menu : MonoBehaviour
@@ -71,8 +70,7 @@ public class Menu : MonoBehaviour
     {
         try
         {
-            var curIndex = LevelLoader.GetCurIndex();
-            LevelRecordLoader.GetInstance().CompareMaxRecord(curIndex, 100);
+           
             LevelLoader.LoadNextLevel();
             Time.timeScale = 1.0f;
         }

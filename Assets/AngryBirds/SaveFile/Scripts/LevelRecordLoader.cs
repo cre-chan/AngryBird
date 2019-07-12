@@ -6,13 +6,12 @@ using System.Runtime.Serialization;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Assets.AngryBirds.UI.levelloaders;
 
 
 
 
-namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
-{
+
+
     //储存单个levelrecord的类
     //用maxLevelRecord是否为空表示某关是否打过
     [Serializable]
@@ -59,7 +58,7 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
 
         public static LevelRecordLoader GetInstance() {
             if (instance == null) {
-                instance = new LevelRecordLoader(LevelLoader.LEVELRANGE);
+                instance = new LevelRecordLoader(LevelLoader.LevelRange);
                 return instance;
             }
             else {
@@ -70,7 +69,7 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
 
         //强制重新加载存档信息
         public static void ForceLoad() {
-            instance = new LevelRecordLoader(LevelLoader.LEVELRANGE);
+            instance = new LevelRecordLoader(LevelLoader.LevelRange);
         }
         
        
@@ -193,11 +192,6 @@ namespace Assets.AngryBirds.SaveFile.Scripts.SaveFile
 
     }
 
-
-
-
-
-}
 
 
 

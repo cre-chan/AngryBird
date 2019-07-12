@@ -7,8 +7,6 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Assets.AngryBirds.UI.levelloaders;
-using Assets.AngryBirds.SaveFile.Scripts.SaveFile;
 
 
 
@@ -63,7 +61,7 @@ public class SelectLevelMenuController : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-        levelCount = LevelLoader.LEVELRANGE;//从levelloader中得到关卡总数量;
+        levelCount = LevelLoader.LevelRange;//从levelloader中得到关卡总数量;
         levelRecordLoader = LevelRecordLoader.GetInstance();
         levelInformation = new List<LevelInformation>();
         onePageCount = (uint)buttonCollect.Length;
@@ -85,7 +83,9 @@ public class SelectLevelMenuController : MonoBehaviour {
         for(int i=0;i<onePageCount;i++)
         {
             Transform target = buttonCollect[i].transform;
-            buttonCollect[i].GetComponent<Button>().onClick.AddListener(() => { HandlerNotification(target); });
+            buttonCollect[i].GetComponent<Button>().onClick.AddListener(
+                () => HandlerNotification(target)
+                );
         }
 
 

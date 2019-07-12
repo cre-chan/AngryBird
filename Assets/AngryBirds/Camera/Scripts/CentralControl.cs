@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 
+
 partial class CentralControl:MonoBehaviour,IControllable {
     private Bird activeBird;//the currently on-fly bird, add by Watch()
     [SerializeField]
@@ -143,6 +144,8 @@ partial class CentralControl:MonoBehaviour,IControllable {
 
         if (this.Win()) {
             finalAction.call(() => {
+                var curIndex = LevelLoader.GetCurIndex();
+                LevelRecordLoader.GetInstance().CompareMaxRecord(curIndex, 100);
                 this.activeControl.BindsTo(
                 new Existence<Win>(winMenu)
                 );

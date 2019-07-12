@@ -6,11 +6,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
 using UnityEngine.SceneManagement;
-using Assets.AngryBirds.SaveFile.Scripts.SaveFile;
 
 
-namespace Assets.AngryBirds.UI.levelloaders
-{
+
+
     static class LevelLoader
     {
         private static int levelNum;//scene总数量
@@ -18,7 +17,7 @@ namespace Assets.AngryBirds.UI.levelloaders
         private static  List<string> levelList = new List<string>();//储存所有关卡的名字
 
 
-        public static int LEVELRANGE
+        public static int LevelRange
         {
             get { return levelRange; }
         }
@@ -127,4 +126,4 @@ namespace Assets.AngryBirds.UI.levelloaders
         }
 
     }
-}
+
