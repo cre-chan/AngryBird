@@ -26,6 +26,8 @@ partial class CentralControl:MonoBehaviour,IControllable {
     private Win winMenu;
     [SerializeField]
     private Fail failMenu;
+    [SerializeField]
+    private ScoreTextController scorer;
 
     [SerializeField]
     private float panSpeed;
@@ -145,13 +147,17 @@ partial class CentralControl:MonoBehaviour,IControllable {
         if (this.Win()) {
             finalAction.call(() => {
                 var curIndex = LevelLoader.GetCurIndex();
-                LevelRecordLoader.GetInstance().CompareMaxRecord(curIndex, 100);
+                LevelRecordLoader.GetInstance().CompareMaxRecord(curIndex, scorer.GetScore());//记录当前关卡分数
+                var next_level = LevelLoader.GetNextLevelIndex();
+                LevelRecordLoader.GetInstance().curLevel = next_level.HasValue?next_level.Value:curIndex;
                 this.activeControl.BindsTo(
                 new Existence<Win>(winMenu)
                 );
                 winMenu.Activate();
             }
                );
+
+            //end
             return;
         }
 

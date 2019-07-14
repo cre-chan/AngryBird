@@ -22,7 +22,7 @@ d29057dcfb9f6888e22b5bc3f21d9b38 UnityEngine.Timeline.dll:UnityEngine.Timeline.T
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CancelQuit
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Invalid
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PauseMenu
-c112702d7ae2c0797f43b87f250aaaef Assembly-CSharp.dll:.brick
+ab0496b9405c22d39a29c54075550133 Assembly-CSharp.dll:.brick
 79472604a0b1ba158cbc23f53575ebca Assembly-CSharp.dll:.world
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -56,7 +56,7 @@ c63db43c730fa2cbb8ca07de15898cb6 UnityEngine.UI.dll:UnityEngine.UI.Toggle
 f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
-6237312549ca2f7315987b57c0d18f44 Assembly-CSharp.dll:.pig
+ab0496b9405c22d39a29c54075550133 Assembly-CSharp.dll:.pig
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -102,6 +102,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 92d7a83ea3c7404e484f3b2eed421855 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 92d7a83ea3c7404e484f3b2eed421855 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 d29057dcfb9f6888e22b5bc3f21d9b38 UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
+ecbae49a1b55a0eb874105b937819a64 Assembly-CSharp.dll:.CollisionJudgement
 01ea9bbfa81376b78f705ed263fb0b7c Assembly-CSharp.dll:.DummyControl
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
@@ -149,12 +150,13 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 356f590f2552b69918d3aa3e7da9e4e7 Assembly-CSharp.dll:.Pause
 8522d54731b95d0f056c9f250185eb83 Assembly-CSharp.dll:UnityStandardAssets.SceneUtils.SlowMoButton
+acc0721a560a1540afd6b915b650d640 Assembly-CSharp.dll:.ScoreTextController
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 2a56361227def9f56c2cf57a88b32f4d UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
-e2ddebdd6482320cf8c07573234e38cf Assembly-CSharp.dll:.CentralControl
+86c7b91b8069d31b9d886fedaecdba22 Assembly-CSharp.dll:.CentralControl
 469906d0c8f64c72ec7830718057059f Assembly-CSharp.dll:.MenuSceneLoader
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.PerformanceTesting.dll:UnityEngine.PerformanceTesting.TimeMeasurementScript
 3073f6d8af9d737e4e72afa03e0ce866 Assembly-CSharp.dll:UnityStandardAssets.SceneUtils.PlaceTargetWithMouse

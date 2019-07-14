@@ -18,6 +18,7 @@ public class StartMenuController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //强制载入，以保证游戏存档被载入
         LevelRecordLoader.ForceLoad();
 	}
 	

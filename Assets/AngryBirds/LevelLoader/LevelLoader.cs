@@ -113,5 +113,10 @@ using UnityEngine.SceneManagement;
                 return levelList[(int)index];
         }
 
+        static public Nullable<uint> GetNextLevelIndex() {
+            var index_next = GetCurIndex()+1;
+            return index_next >= levelRange ?new uint?() : index_next;
+        }
+
     }
 

@@ -185,11 +185,12 @@ public class SelectLevelMenuController : MonoBehaviour {
         this.gameObject.SetActive(false);
     }
    
-    //加载点击按钮
+    //加载点击按钮,只有有效范围内的按钮可以点击
     public void LoadClickLevel(uint num)
     {
         uint i = onePageCount * page;
         LevelLoader.Load(num + i);
+        LevelRecordLoader.GetInstance().curLevel = num + i;//设置存档进度
     }
 
     //加载第一个未通过的关卡
