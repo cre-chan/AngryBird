@@ -7,17 +7,10 @@ using UnityEngine;
 //The Mass is defined in rigidbody as part of physics
 //superpower is triggered when mouse clicked
 [RequireComponent(typeof(Rigidbody2D))]
-public partial class Bird : MonoBehaviour
+public abstract partial class Bird : MonoBehaviour
 {
 
-    void Start()
-    {
-        //the bird's default superpower is to shout a phrase
-        this._superpower = new ActionOnce(
-            new Existence<Action>(() => Debug.Log("Su--per--Po--wer!!"))
-            );
-        this.isDead = false;
-    }
+    public abstract void Start();
 
 
     //used to lock and unlock as well as shoot the bird

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using Controllers;
+
 public class Pause: Menu,IControllable{
     [SerializeField]
     private CentralControl scene;

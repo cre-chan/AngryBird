@@ -4,12 +4,12 @@ using UnityEngine;
 //extends the bird to use some once super power
 
 partial class Bird {
-    private delegate void Action();
-    private ActionOnce _superpower;
+    protected delegate void Action();
+    protected ActionOnce _superpower;
 
 
     //action that takes place only once
-    private class ActionOnce{
+    protected class ActionOnce{
         private Action action;
 
         public ActionOnce(Existence<Action> action) {

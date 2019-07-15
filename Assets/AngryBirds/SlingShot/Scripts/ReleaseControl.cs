@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Controllers;
 
 //this file handles the interaction and some nasty scripts,
 partial class SlingShot {
