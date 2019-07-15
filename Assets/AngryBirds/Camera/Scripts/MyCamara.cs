@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+using Utility;
 
 //this is mainly the camara itself. The central control will be scattered into other file
 /*
@@ -14,15 +12,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
 public partial class MyCamara : MonoBehaviour {
-
-
     [SerializeField]
     private float maxSize;//determines the max Size of camera scale
     [SerializeField]
     private float minSize;//the minimum
-
-
-
 
 	//restricts the translation in some area
 	public void Translate(Vector3 direct,Collider2D sceneBorder=null){
@@ -34,8 +27,8 @@ public partial class MyCamara : MonoBehaviour {
 
     //we always adjust position in order to keep the camera in scene.The sceneBorder should always be non-null.
     void AdjustPos(Collider2D sceneBorder=null) {
-        var border=Utility.BoundToRect(sceneBorder.bounds);
-        var camBorder = Utility.GetCamViewRect(GetComponent<Camera>());
+        var border=CamUtility.BoundToRect(sceneBorder.bounds);
+        var camBorder = CamUtility.GetCamViewRect(GetComponent<Camera>());
 
         var y_diff = 0f;
         var  x_diff=0f;

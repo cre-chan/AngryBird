@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using Utility;
 
 //extends the bird to use some once super power
 
@@ -12,7 +11,7 @@ partial class Bird {
     protected class ActionOnce{
         private Action action;
 
-        public ActionOnce(Existence<Action> action) {
+        public ActionOnce(Existing<Action> action) {
             this.action = action.Unwrap();
         }
 

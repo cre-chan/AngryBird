@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 
 
 //A bird consists of its MASS,Collider,superpower
@@ -10,8 +11,15 @@ using UnityEngine;
 public abstract partial class Bird : MonoBehaviour
 {
 
-    public abstract void Start();
+    public void Start() {
+        //the bird's default superpower is to shout a phrase
+        this._superpower = new ActionOnce(
+            new Existing<Action>(this.BirdPower)
+            );
+        this.isDead = false;
+    }
 
+    public abstract void BirdPower();
 
     //used to lock and unlock as well as shoot the bird
     //the bird is physics-capable just because of rb2d
@@ -56,7 +64,7 @@ public abstract partial class Bird : MonoBehaviour
 
 
     //triggered when mouse-left pressed
-    public void Superpower()
+    public void UseBirdPower()
     {
         _superpower.Call();
     }

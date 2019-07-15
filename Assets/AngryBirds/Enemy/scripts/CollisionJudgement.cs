@@ -1,13 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
+﻿using UnityEngine;
 using Enemy;
 
-
-interface ICom { }
-
+//仅导入计分器类型
+using ScoreTextController = UI.InGameUIs.ScoreTextController;
 
 //判断碰撞的发生，将碰撞转发给collidable对象，判断对象状态，并向计分器发送消息
 [RequireComponent(typeof(Collider2D))]

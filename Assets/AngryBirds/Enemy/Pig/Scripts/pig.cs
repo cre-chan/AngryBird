@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Enemy;
+namespace Enemy
+{
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class pig : Damageable
+    {
+        [SerializeField]
+        private DestroyableObject destroyablePart;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class pig :Damageable{
-    [SerializeField]
-    private DestroyableObject destroyablePart;
+        public override States ReceiveDamage(Collision2D collision)
+        {
 
-    public override States ReceiveDamage(Collision2D collision) {
-
-        return destroyablePart.ReceiveDamage(collision);
+            return destroyablePart.ReceiveDamage(collision);
+        }
     }
 }

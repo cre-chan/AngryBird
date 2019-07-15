@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+using Utility;
 using Controllers;
 
 //this file handles the interaction and some nasty scripts,
@@ -75,7 +73,7 @@ partial class SlingShot {
         var next_bird = this.GetBird();
 
         if (next_bird != null){
-            var temp = new Existence<Bird>(next_bird);
+            var temp = new Existing<Bird>(next_bird);
             this.Load(temp);
 
         }
@@ -112,7 +110,8 @@ partial class SlingShot {
             var bird = this.bullet;
             Emit(ref strength);
             if(bird!=null)
-                supervisor.Watch( new Existence<Bird>(bird) );
+                supervisor.Watch( new Existing<Bird>(bird) );
+           
         }
         else
             this.Revert();

@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine;
+using Utility;
 
-using UnityEngine;
 
 /*
  I was considering changing this slingshot to a state machine pattern.
@@ -58,7 +57,7 @@ public partial class SlingShot : MonoBehaviour{
 	
 	//load the bird onto SlingShot. The slingshot's bullet cannot be NULL!!!
     //The existence simplify the implemantation. It ensures the load to change states.
-	public void Load (Existence<Bird> bullet)
+	public void Load (Existing<Bird> bullet)
 	{
         //since the bullet reflects the state, this ensures call only works under unloaded state
         if (!this.IsLoaded) {
