@@ -59,6 +59,9 @@ partial class SlingShot {
 
         if (max_strength <= dead_sterngth)
             Debug.LogError("Having max_strength less than dead_strength");
+
+        var localClickpos = this.transform.InverseTransformPoint(positioner.position);
+        this.GetComponent<LineRenderer>().SetPosition(1, localClickpos);
     }
 
     //enables the slingshot control to get bird from some source
@@ -86,6 +89,8 @@ partial class SlingShot {
         var delta3D = positioner.transform.position - clickpos;
         var delta2D = new Vector2(delta3D.x, delta3D.y);
 
+        var localClickpos= this.transform.InverseTransformPoint(clickpos);
+        this.GetComponent<LineRenderer>().SetPosition(1, localClickpos);
 
         this.Drag(delta2D);
 
@@ -115,5 +120,8 @@ partial class SlingShot {
         }
         else
             this.Revert();
+
+        var localClickpos = this.transform.InverseTransformPoint(positioner.position);
+        this.GetComponent<LineRenderer>().SetPosition(1, localClickpos);
     }
 }

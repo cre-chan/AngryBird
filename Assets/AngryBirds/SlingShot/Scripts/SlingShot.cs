@@ -89,8 +89,11 @@ public partial class SlingShot : MonoBehaviour{
 
     private void Revert()
     {
-        if(this.IsLoaded)
+        if (this.IsLoaded)
+        {
             this.bullet.transform.position = positioner.position;
+           
+        }
     }
 
 
