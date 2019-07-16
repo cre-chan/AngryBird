@@ -9,14 +9,10 @@ using UnityEngine.SceneManagement;
 static class LevelLoader
 {
     private static int levelNum;//scene总数量
-    private static int levelRange;//关卡scene数量。默认从0到levelNum-1是关卡，levelNum是主界面
     private static  List<string> levelList = new List<string>();//储存所有关卡的名字
 
 
-    public static int LevelRange
-    {
-        get { return levelRange; }
-    }
+    public static int LevelRange { get; private set; }
 
 
     //构造函数
@@ -30,7 +26,7 @@ static class LevelLoader
             return;
         }
 
-        levelRange = levelNum - 1;
+        LevelRange = levelNum - 1;
         for (int i = 0; i < levelNum; i++)
         {
             string scenePath = SceneUtility.GetScenePathByBuildIndex(i);//找到路径，找到对应的名字
@@ -53,7 +49,7 @@ static class LevelLoader
     //按照index来加载scene
     public static void Load(uint index)
     {
-        if (index >= levelRange)
+        if (index >= LevelRange)
         {
             Debug.LogError("加载失败，关卡数越界");
             throw new IndexOutOfRangeException("加载失败，关卡数越界");
@@ -100,7 +96,7 @@ static class LevelLoader
 
     public static string GetName(uint index)
     {
-        if (index >= levelRange)
+        if (index >= LevelRange)
         {
             Debug.LogError("获得名字失败，关卡数越界");
             throw new IndexOutOfRangeException("获得名字失败，关卡数越界");
@@ -111,7 +107,7 @@ static class LevelLoader
 
     static public Nullable<uint> GetNextLevelIndex() {
         var index_next = GetCurIndex()+1;
-        return index_next >= levelRange ?new uint?() : index_next;
+        return index_next >= LevelRange ?new uint?() : index_next;
     }
 
 }
