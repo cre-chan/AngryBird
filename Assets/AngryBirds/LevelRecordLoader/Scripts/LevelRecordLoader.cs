@@ -55,7 +55,7 @@ using UnityEngine;
 
         public static LevelRecordLoader GetInstance() {
             if (instance == null) {
-                instance = new LevelRecordLoader(LevelLoader.LevelRange);
+                instance = new LevelRecordLoader(LevelLoader.LevelCount);
                 return instance;
             }
             else {
@@ -66,7 +66,7 @@ using UnityEngine;
 
         //强制重新加载存档信息
         public static void ForceLoad() {
-            instance = new LevelRecordLoader(LevelLoader.LevelRange);
+            instance = new LevelRecordLoader(LevelLoader.LevelCount);
         }
         
        

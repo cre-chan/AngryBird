@@ -63,7 +63,7 @@ namespace UI.StartupMenus
         // Use this for initialization
         void Start()
         {
-            levelCount = LevelLoader.LevelRange;//从levelloader中得到关卡总数量;
+            levelCount = LevelLoader.LevelCount;//从levelloader中得到关卡总数量;
             levelRecordLoader = LevelRecordLoader.GetInstance();
             levelInformation = new List<LevelInformation>();
             onePageCount = (uint)buttonCollect.Length;

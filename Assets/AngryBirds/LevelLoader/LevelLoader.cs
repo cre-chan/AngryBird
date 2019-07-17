@@ -10,9 +10,10 @@ static class LevelLoader
 {
     private static int levelNum;//scene总数量
     private static  List<string> levelList = new List<string>();//储存所有关卡的名字
+    private const uint base_offset = 1;
 
 
-    public static int LevelRange { get; private set; }
+    public static int LevelCount { get; private set; }
 
 
     //构造函数
@@ -26,7 +27,7 @@ static class LevelLoader
             return;
         }
 
-        LevelRange = levelNum - 1;
+        LevelCount = levelNum - (int)base_offset;
         for (int i = 0; i < levelNum; i++)
         {
             string scenePath = SceneUtility.GetScenePathByBuildIndex(i);//找到路径，找到对应的名字
@@ -49,7 +50,9 @@ static class LevelLoader
     //按照index来加载scene
     public static void Load(uint index)
     {
-        if (index >= LevelRange)
+        //获得真实的关卡序号
+        index = index + base_offset;
+        if (index >= levelNum)
         {
             Debug.LogError("加载失败，关卡数越界");
             throw new IndexOutOfRangeException("加载失败，关卡数越界");
@@ -90,13 +93,13 @@ static class LevelLoader
     //获得当前屏幕的index
     public static uint GetCurIndex()
     {
-        return (uint)SceneManager.GetActiveScene().buildIndex;
+        return (uint)SceneManager.GetActiveScene().buildIndex-base_offset;
 
     }
 
     public static string GetName(uint index)
     {
-        if (index >= LevelRange)
+        if (index >= LevelCount)
         {
             Debug.LogError("获得名字失败，关卡数越界");
             throw new IndexOutOfRangeException("获得名字失败，关卡数越界");
@@ -107,7 +110,7 @@ static class LevelLoader
 
     static public Nullable<uint> GetNextLevelIndex() {
         var index_next = GetCurIndex()+1;
-        return index_next >= LevelRange ?new uint?() : index_next;
+        return index_next >= LevelCount ?new uint?() : index_next;
     }
 
 }
